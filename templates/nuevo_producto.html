@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+Añadir un Producto
+{% endblock %}
+
+{% block h1 %}
+<h1>Añade un producto</h1>
+{% endblock %}
+
+{% block contenido %}
+<form class="form" method="POST">
+    <label for="nombre" class="label">Nombre: </label>
+        <input id="nombre" type="text" name="nombre" class="input" required>
+        <br><br>
+        <label for="precio" class="label">Precio: </label>
+        <input id="precio" type="number" name="precio" class="input" step="0.01" required>
+        <br><br>
+        <label for="stock" class="label">Stock: </label>
+        <input id="stock" type="number" name="stock" class="input" min="0" required>
+        <br><br>
+        <label for="categoria" class="label">Categoria: </label>
+        <input id="categoria" type="text" name="categoria" class="input" required>
+        <br><br>
+        <label for="imagen" class="label">URL-Imagen: </label>
+        <input id="imagen" type="text" name="imagen" class="input" required>
+        <button type="submit" class="boton">Enviar</button>
+        <br><hr>
+        <button type="button" class="boton" id="volver"> <a href="./dashboard">Volver</a></button>
+</form><br><br>
+{% endblock %}

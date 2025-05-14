@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+Tienda de Gestión
+{% endblock %}
+
+{% block h1 %}
+<h1>Tienda de Gestión</h1>
+{% endblock %}
+
+{% block contenido %}
+    <pre class="Bienvenida">Buenas <strong>{{admin.title()}}</strong>, Bienvenido a <strong>{{tienda}}</strong>  |  {{fecha}}</pre>
+
+    <hr>
+
+    <div class="grid-container">
+        <div class="card">
+            <h2>Catálogo de productos</h2><hr>
+            <ul>
+                {% for producto in products%}
+                    <li>
+                        <strong>Nombre: </strong> {{producto["nombre"]}}
+                        <ul>
+                            <li><strong>Precio:</strong> {{producto["precio"]}}€</li>
+                            <li><strong>Stock:</strong>
+                                {% if producto["stock"] %}
+                                    {{producto["stock"]}}
+                                {% else %}
+                                    <span class="agotado">Agotado</span>
+                                {% endif %}
+                            </li>
+                            <li><strong>Categoria:</strong> {{producto["categoria"]}}</li>
+                            <li><img src="{{producto['img']}}" alt="Imagen de {{producto['nombre']}}" width="150"></li>
+                        </ul>
+                    </li>
+                {% endfor %}
+                <li>
+                    <strong>Total Stock:</strong> {{total}} productos están disponibles!
+                </li>
+            </ul>
+        </div>
+
+
+        <div class="card">
+            <h2>Clientes Registrados</h2><hr>
+            <ul>
+                {% for cliente in clientes %}
+                    <li>
+                        <strong>Nombre: </strong> {{cliente["nombre"]}}
+                        <ul>
+                            <li><strong>Email:</strong> {{cliente["email"]}}</li>
+                            <li><strong>Estado:</strong> {{"Activo" if cliente["activo"] else "Inactivo" }}</li>
+                            <li><strong>Pedidos:</strong> {{cliente["pedidos"] if cliente["pedidos"] else "No tiene ningún pedido"}}</li>
+                            <li><img src="{{cliente['img']}}" alt="Foto de perfil {{cliente['nombre']}}"></li>
+                        </ul>
+                    </li>
+                {% endfor %}
+
+                <li>
+                    Ahora mismo hay <strong>{{activos}} clientes</strong> activos!
+                </li>
+                <li>
+                    <strong>{{cliente_max_pedidos}}</strong> es el cliente con mayor número de pedidos!
+                </li>
+            </ul>
+        </div>
+
+
+        <div class="card">
+            <h2>Pedidos Recientes</h2><hr>
+            <ul>
+                {% for pedido in pedidos %}
+                    <li>
+                        <strong>Cliente: </strong> {{pedido["cliente"]["nombre"]}}
+                        <ul>
+                            <li><strong>Total:</strong> {{pedido["total"]}}€</li>
+                            <li><strong>Fecha:</strong> {{pedido["fecha"]}}</li><br>
+                            <li><img src="{{pedido['cliente']['img']}}" alt="Imagen Carrito" width="150"></li>
+                        </ul>
+                    </li>
+                {% endfor %}
+
+                <li>
+                    El ingreso total es de: <strong>{{ingreso_total}}€</strong>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+{% endblock %}

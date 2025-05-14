@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block h1 %}
+<h1>Nuevo Cliente</h1>
+{% endblock %}
+
+{% block contenido %}
+<form class="form" method="POST">
+    <label for="nombre" class="label">Nombre: </label>
+    <input id="nombre" type="text" name="nombre" class="input" required>
+    <br><br>
+    <label for="email" class="label">Email: </label>
+    <input id="email" type="email" name="email" class="input" required>
+    <br><br>
+    <label for="pedidos" class="label">Nº Pedidos: </label>
+    <input id="pedidos" type="number" name="pedidos" class="input" required>
+    <br><br>
+    <label for="imagen" class="label">URL-Imagen: </label>
+    <input id="imagen" type="text" name="imagen" class="input" required>
+    <button type="submit" class="boton">Enviar</button>
+    <br><hr>
+    <button type="button" class="boton" id="volver"> <a href="./dashboard">Volver</a></button>
+</form>
+{% endblock %}

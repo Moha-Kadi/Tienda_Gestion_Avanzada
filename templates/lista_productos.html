@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block h1 %}
+<h1>Listado Productos</h1>
+{% endblock %}
+
+{% block contenido %}
+<div class="grid-container">
+    <div class="card">
+        <h2>Catálogo de productos </h2>
+        <ul>
+            {% for producto in products%}
+                <li>
+                    <strong>Nombre: </strong> {{producto["nombre"]}}
+                    <ul>
+                        <li><strong>Precio:</strong> {{producto["precio"]}}€</li>
+                        <li><strong>Stock:</strong>
+                            {% if producto["stock"] %}
+                                {{producto["stock"]}}
+                            {% else %}
+                                <span class="agotado">Agotado</span>
+                            {% endif %}
+                        </li>
+                        <li><strong>Categoria:</strong> {{producto["categoria"]}}</li>
+                        <li><img src="{{producto['img']}}" alt="Imagen de {{producto['nombre']}}" width="150"></li>
+                    </ul>
+                </li>
+            {% endfor %}
+            <li>
+                <strong>Total Stock:</strong> {{total}} productos están disponibles!
+            </li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
