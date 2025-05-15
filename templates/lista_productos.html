@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block titulo %}
+Lista Productos
+{% endblock %}
+
 {% block h1 %}
 <h1>Listado Productos</h1>
 {% endblock %}
@@ -22,7 +26,12 @@
                             {% endif %}
                         </li>
                         <li><strong>Categoria:</strong> {{producto["categoria"]}}</li>
-                        <li><img src="{{producto['img']}}" alt="Imagen de {{producto['nombre']}}" width="150"></li>
+                        <li>
+                            <a href="{{ url_for('ver_producto', id=producto['_id']) }}">
+                                <img src="{{ producto['img'] }}" alt="Imagen de {{ producto['nombre'] }}" width="150">
+                            </a>
+                            
+                        </li>
                     </ul>
                 </li>
             {% endfor %}

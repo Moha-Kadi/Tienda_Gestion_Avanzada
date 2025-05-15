@@ -30,7 +30,9 @@ Tienda de Gestión
                                 {% endif %}
                             </li>
                             <li><strong>Categoria:</strong> {{producto["categoria"]}}</li>
-                            <li><img src="{{producto['img']}}" alt="Imagen de {{producto['nombre']}}" width="150"></li>
+                            <li><a href="{{ url_for('ver_producto', id=producto['_id']) }}">
+                                <img src="{{ producto['img'] }}" alt="Imagen de {{ producto['nombre'] }}" width="150">
+                            </a></li>
                         </ul>
                     </li>
                 {% endfor %}

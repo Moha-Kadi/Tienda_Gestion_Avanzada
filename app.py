@@ -93,7 +93,15 @@ def lista_productos():
 
     return render_template("lista_productos.html",products=Productos, total = total_stock)
 
-# #   @app.route("productos/<int:id_producto>")
+@app.route("/productos/<id>")
+def ver_producto(id):
+    
+    for producto in Productos:
+        if producto["_id"] == id:
+            return render_template("detalle_producto.html", productos=Productos)
+
+    return render_template("404.html")
+    
 
 @app.route("/registro_usuario", methods = ["GET", "POST"])
 def registro_usuario():
