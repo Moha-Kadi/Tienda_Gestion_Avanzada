@@ -1,1 +1,40 @@
 {% extends "base.html" %}
+
+{% block titulo %}
+Detalle Producto
+{% endblock %}
+
+{% block h1 %}
+<h1>Detalles del Producto</h1>
+{% endblock %}
+
+{% block contenido %}
+<div class="grid-container">
+    <div class="card">
+        <ul>
+                <li>
+                    <strong>Nombre: </strong> {{producto["nombre"]}}
+                    <ul>
+                        <li><strong>Precio:</strong> {{producto["precio"]}}€</li>
+                        <li><strong>Stock:</strong>
+                            {% if producto["stock"] %}
+                                {{producto["stock"]}}
+                            {% else %}
+                                <span class="agotado">Agotado</span>
+                            {% endif %}
+                        </li>
+                        <li><strong>Categoria:</strong> {{producto["categoria"]}}</li>
+                        <li>
+                            <a href="{{ url_for('ver_producto', id=producto['_id']) }}">
+                                <img src="{{ producto['img'] }}" alt="Imagen de {{ producto['nombre'] }}" width="150">
+                            </a>
+                        </li> 
+                        <li>
+                            <br><a href="{{ url_for('borrar_producto', id=producto['_id']) }}" class="boton">Borrar Producto</a><br><br>
+                        </li>
+                    </ul>
+                </li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

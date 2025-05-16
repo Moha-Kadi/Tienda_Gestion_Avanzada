@@ -11,9 +11,8 @@ app = Flask(__name__)
 mongo = MongoClient(URL_MONGO)
 app.db = mongo.PythonMongoDB  
 
-#   TABLAS MONGODB
-Productos = [producto for producto in app.db.Productos.find({})]
-Usuarios = [usuario for usuario in app.db.Usuarios.find({})]
+
+
 Pedidos = [usuario for usuario in app.db.Pedidos.find({})]
 
 #   DATOS
@@ -31,6 +30,10 @@ def home():
 
 @app.route("/dashboard")
 def dashboard():
+
+    Productos = [producto for producto in app.db.Productos.find({})]
+    Usuarios = [usuario for usuario in app.db.Usuarios.find({})]
+
 #   NÚMERO TOTAL DE PRODUCTOS EN STOCK
     total_stock = 0
     for total in Productos:
@@ -60,6 +63,8 @@ def dashboard():
 @app.route("/añadir_producto", methods = ["GET", "POST"])
 def añadir_producto():
 
+    Productos = [producto for producto in app.db.Productos.find({})]
+
     if request.method == "POST":
         
         nombre = request.form["nombre"]
@@ -79,12 +84,15 @@ def añadir_producto():
         Productos.append(parametros)
         app.db.Productos.insert_one(parametros)
 
-        return redirect("/dashboard")
+        return render_template("/200_OK.html")
+        
 
     return render_template("nuevo_producto.html")
 
 @app.route("/productos")
 def lista_productos():
+
+    Productos = [producto for producto in app.db.Productos.find({})]
 
     #   NÚMERO TOTAL DE PRODUCTOS EN STOCK
     total_stock = 0
@@ -95,16 +103,33 @@ def lista_productos():
 
 @app.route("/productos/<id>")
 def ver_producto(id):
+
+    Productos = [producto for producto in app.db.Productos.find({})]
     
     for producto in Productos:
-        if producto["_id"] == id:
-            return render_template("detalle_producto.html", productos=Productos)
+        if str(producto["_id"]) == id:
+            return render_template("detalle_producto.html", producto=producto)
 
     return render_template("404.html")
     
 
+@app.route("/eliminar_producto/<id>")
+def borrar_producto(id):
+
+    Productos = [producto for producto in app.db.Productos.find({})]
+    
+    for producto in Productos:
+        if str(producto["_id"]) == id:
+            app.db.Productos.delete_one({"_id":producto["_id"]})
+            return redirect("/dashboard")
+
+    return render_template("404.html")
+
+
 @app.route("/registro_usuario", methods = ["GET", "POST"])
 def registro_usuario():
+
+    Usuarios = [usuario for usuario in app.db.Usuarios.find({})]
 
     if request.method == "POST":
         
@@ -130,6 +155,8 @@ def registro_usuario():
 
 @app.route("/usuarios")
 def lista_usuarios():
+
+    Usuarios = [usuario for usuario in app.db.Usuarios.find({})]
 
     #   NÚMERO DE CLIENTES ACTIVOS
     clientes_activos = 0
